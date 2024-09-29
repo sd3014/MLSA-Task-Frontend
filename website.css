@@ -1,0 +1,392 @@
+/* General Styling */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: linear-gradient(to bottom right, #f0f4f7, #dce8f2);
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* Headings */
+h1, h2, h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #3498db;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    display: block;
+    padding: 15px;
+    color: white;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #2980b9;
+    border-radius: 5px;
+}
+
+/* Section Styling */
+
+section {
+    padding: 40px 20px; 
+    margin: 40px auto; 
+    max-width: 1200px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+
+#home {
+    padding-top: 100px;
+    text-align: center;
+    background-image: url("image-removebg-preview (12).png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+/* Announcements */
+.announcements {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.announcements .card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    display: inline-block;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f7f9fc;
+}
+
+.announcements .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Leadership Team */
+.leadership-team {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.leadership-team .card {
+    border: none;
+    position: relative;
+    margin: 15px;
+    width: 250px;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    background-color: #ffffff;
+}
+
+.leadership-team .card img {
+    width: 100%;
+    height: 250px;
+    border-radius: 15px;
+    transition: transform 0.5s ease;
+}
+
+.leadership-team .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.leadership-team .card:hover img {
+    transform: scale(1.05);
+}
+
+/* Leadership Team Description */
+.leadership-team .description {
+    padding: 15px;
+    text-align: left;
+    background-color: #f0f4f7; 
+    border-radius: 0 0 15px 15px; 
+    box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1); 
+    font-size: 15px;
+    color: #555;
+}
+
+.leadership-team .description h3 {
+    font-size: 18px;
+    color: #2c3e50; 
+    margin-bottom: 10px;
+    text-align: center; 
+    font-weight: bold;
+}
+
+.leadership-team .description p {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 5px;
+    text-align: justify; 
+}
+
+.leadership-team .card:hover .description {
+    background-color: #e3f2fd; 
+    box-shadow: inset 0px 4px 8px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.leadership-team .card h3 {
+    margin: 10px 0 5px;
+    color: #3498db;
+}
+
+.leadership-team .card p {
+    font-size: 14px;
+    color: #555;
+}
+
+/* Table Styling (Timetable) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+th {
+    background-color: #3498db;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Gallery */
+.gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+/* Video Container Styling */
+.video-container {
+    display: flex;
+    justify-content: center; 
+    margin: 20px 0; 
+}
+
+.video-container iframe {
+    width: 500px; 
+    height: 300px; 
+    border-radius: 10px; 
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.1); 
+}
+
+
+/* Study Materials Section */
+.study-materials {
+    width: 100%; 
+    max-width: 1200px; 
+    margin: 20px auto; 
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.study-materials h3 {
+    text-align: center; 
+    color: #2c3e50; 
+    margin-bottom: 15px;
+}
+
+.study-materials ul {
+    list-style-type: none; 
+    padding: 0; 
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+}
+
+.study-materials li {
+    margin: 10px 0; 
+}
+
+.study-materials a {
+    display: block; 
+    padding: 15px 20px; 
+    background-color: #3498db; 
+    color: white;
+    border-radius: 5px; 
+    text-align: center; 
+    font-size: 16px; 
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.study-materials a:hover {
+    background-color: #2980b9; 
+    transform: translateY(-2px);
+}
+
+/* Contact Us Form */
+form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+form input, form textarea, form button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+form input:focus, form textarea:focus {
+    border-color: #3498db;
+    outline: none;
+}
+
+form button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #2980b9;
+}
+.contact-details {
+    text-align: center; 
+    margin: 20px 0; 
+    font-size: 18px; 
+}
+
+.map-container {
+    display: flex;
+    justify-content: center; 
+    margin-top: 20px; 
+}
+
+#contact iframe {
+    width: 100%;
+    max-width: 600px; 
+    height: 450px; 
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1); 
+}
+
+/* Popup Styling */
+.popup {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1001;
+}
+
+.popup-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 30px;
+    width: 350px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease;
+}
+
+.close {
+    color: red;
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    .announcements .card, .leadership-team .card, .gallery img, .gallery video {
+        width: 90%;
+        margin: 20px 0;
+    }
+
+    iframe {
+        width: 100%;
+    }
+}
