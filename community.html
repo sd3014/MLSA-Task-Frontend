@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://source.unsplash.com/1600x900/?nature,community'); /* Add background image */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #004d40;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin: 0;
+        }
+
+        section {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            color: #333;
+        }
+
+        .community-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .community-form h2 {
+            color: #004d40;
+        }
+
+        .community-form input, .community-form textarea {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #004d40;
+            width: 80%;
+            max-width: 600px;
+            background-color: #f9f9f9;
+        }
+
+        .community-form button {
+            background-color: #004d40;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s;
+        }
+
+        .community-form button:hover {
+            background-color:#004d40;
+        }
+
+        .community-posts {
+            margin-top: 40px;
+        }
+
+        .post {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .post h3 {
+            margin-top: 0;
+            font-size: 1.7em;
+            color: #004d40;
+        }
+
+        .post p {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+            }
+
+            .community-form input, .community-form textarea {
+                width: 95%;
+            }
+
+            .community-form button {
+                width: 95%;
+                font-size: 1.1em;
+            }
+
+            .post h3 {
+                font-size: 1.5em;
+            }
+
+            .post p {
+                font-size: 1em;
+            }
+
+            section {
+                margin: 10px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .community-form input, .community-form textarea {
+                font-size: 0.9em;
+                padding: 10px;
+            }
+
+            .post h3 {
+                font-size: 1.3em;
+            }
+
+            .post p {
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Community</h1>
+    </header>
+
+    <section class="community-form">
+        <h2>Share Your Experience</h2>
+        <form id="postForm" onsubmit="submitPost(event)">
+            <input type="text" id="postTitle" placeholder="Enter post title" required>
+            <textarea id="postContent" rows="5" placeholder="Write your experience here..." required></textarea>
+            <button type="submit">Post</button>
+        </form>
+    </section>
+
+    <section class="community-posts">
+        <h2>Community Posts</h2>
+        <div id="postsContainer"></div>
+    </section>
+
+    <script>
+        // On page load, retrieve posts from local storage
+        window.onload = function() {
+            loadPostsFromStorage();
+        }
+
+        // Function to load posts from local storage
+        function loadPostsFromStorage() {
+            const postsContainer = document.getElementById("postsContainer");
+            const storedPosts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+
+            storedPosts.forEach(post => {
+                const postDiv = createPostElement(post.title, post.content);
+                postsContainer.appendChild(postDiv);
+            });
+        }
+
+        // Function to create a new post element
+        function createPostElement(title, content) {
+            const postDiv = document.createElement("div");
+            postDiv.className = "post";
+
+            const postHeading = document.createElement("h3");
+            postHeading.innerText = title;
+
+            const postParagraph = document.createElement("p");
+            postParagraph.innerText = content;
+
+            postDiv.appendChild(postHeading);
+            postDiv.appendChild(postParagraph);
+
+            return postDiv;
+        }
+
+        // Function to submit a new post
+        function submitPost(event) {
+            event.preventDefault();
+            const postTitle = document.getElementById("postTitle").value;
+            const postContent = document.getElementById("postContent").value;
+
+            if (postTitle && postContent) {
+                const postsContainer = document.getElementById("postsContainer");
+
+                // Create a new post div
+                const postDiv = createPostElement(postTitle, postContent);
+                postsContainer.appendChild(postDiv);
+
+                // Save to local storage
+                savePostToStorage(postTitle, postContent);
+
+                // Reset the form
+                document.getElementById("postForm").reset();
+            }
+        }
+
+        // Function to save a post to local storage
+        function savePostToStorage(title, content) {
+            const storedPosts = JSON.parse(localStorage.getItem("communityPosts")) || [];
+            storedPosts.push({ title, content });
+            localStorage.setItem("communityPosts", JSON.stringify(storedPosts));
+        }
+    </script>
+
+</body>
+</html>

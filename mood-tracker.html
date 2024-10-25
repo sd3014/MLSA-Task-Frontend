@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mood Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #e0f7fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background-color: #00796b;
+            color: white;
+            border-bottom: 4px solid #004d40;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            transition: color 0.3s;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .mood-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .mood-form input, .mood-form select {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #00796b;
+            width: 80%;
+            max-width: 400px;
+        }
+
+        .mood-form button {
+            background-color: #00796b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .mood-form button:hover {
+            background-color: #004d40;
+        }
+
+        .mood-history {
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .mood-form input, .mood-form select {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Mood Tracker</h1>
+    </header>
+
+    <section class="mood-form">
+        <h2>Log Your Mood</h2>
+        <form id="moodForm" onsubmit="logMood(event)">
+            <select id="moodInput" required>
+                <option value="">--Select Mood--</option>
+                <option value="Happy">Happy</option>
+                <option value="Sad">Sad</option>
+                <option value="Angry">Angry</option>
+                <option value="Excited">Excited</option>
+                <option value="Anxious">Anxious</option>
+            </select>
+            <input type="text" id="moodNotes" placeholder="Add some notes about your mood (optional)">
+            <button type="submit">Log Mood</button>
+        </form>
+        <div id="moodLog" class="mood-log">
+            <h3>Logged Moods</h3>
+            <ul id="moodList"></ul>
+        </div>
+    </section>
+
+    <section class="mood-history">
+        <h2>Your Mood History (Graphical)</h2>
+        <canvas id="moodChart"></canvas>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Initialize or retrieve mood data from localStorage
+        let moodData = JSON.parse(localStorage.getItem('moodData')) || {
+            Happy: 0,
+            Sad: 0,
+            Angry: 0,
+            Excited: 0,
+            Anxious: 0
+        };
+        
+        // Initialize or retrieve mood log history from localStorage
+        let moodLog = JSON.parse(localStorage.getItem('moodLog')) || [];
+
+        // Display mood history in the list
+        const moodList = document.getElementById("moodList");
+        moodLog.forEach(moodItem => {
+            const li = document.createElement("li");
+            li.innerText = moodItem;
+            moodList.appendChild(li);
+        });
+
+        // Chart initialization
+        const moodChart = new Chart(document.getElementById('moodChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Happy', 'Sad', 'Angry', 'Excited', 'Anxious'],
+                datasets: [{
+                    label: 'Mood Frequency',
+                    data: Object.values(moodData),
+                    backgroundColor: ['#66bb6a', '#ef5350', '#ff7043', '#42a5f5', '#ab47bc']
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Function to log the mood
+        function logMood(event) {
+            event.preventDefault();
+            const moodInput = document.getElementById("moodInput").value;
+            const moodNotes = document.getElementById("moodNotes").value || "No notes";
+
+            if (moodInput) {
+                const moodEntry = `Mood: ${moodInput} | Notes: ${moodNotes} | Date: ${new Date().toLocaleDateString()}`;
+                
+                // Add the mood entry to the list and localStorage
+                moodLog.push(moodEntry);
+                localStorage.setItem('moodLog', JSON.stringify(moodLog));
+                
+                const li = document.createElement("li");
+                li.innerText = moodEntry;
+                moodList.appendChild(li);
+
+                // Update the chart
+                updateChart(moodInput);
+            }
+        }
+
+        // Function to update the chart and save to localStorage
+        function updateChart(mood) {
+            moodData[mood]++;
+            moodChart.data.datasets[0].data = Object.values(moodData);
+            moodChart.update();
+
+            // Save updated mood data to localStorage
+            localStorage.setItem('moodData', JSON.stringify(moodData));
+        }
+    </script>
+</body>
+</html>
